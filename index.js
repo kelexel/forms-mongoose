@@ -107,8 +107,10 @@ module.exports.create = function (model, extra_params, form_name, form_category)
   for (var pathName in paths) {
     var path = paths[pathName];
     var field = get_field(path, form_name, form_category);
-    if (field)
+    if (field) {
+      if (model[pathName]) field[pathName].value = model[pathName];
       params = _.extend(params, field);
+    }
   }
   for (var virtName in virtuals) {
     var virt = virtuals[virtName];
